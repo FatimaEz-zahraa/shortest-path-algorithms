@@ -40,10 +40,8 @@ A high-performance, interactive pathfinding visualizer built with **C++ (WebAsse
 This project is static and can be deployed on **Netlify**, **GitHub Pages**, or **Vercel**.
 See `DEPLOY.md` for detailed instructions.
 
-## 📷 Screenshots
-
-*(Add your screenshots here)*
 
 ## 📄 License
 
 This project is open-source and available under the MIT License.
+
