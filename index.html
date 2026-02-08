@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>GraphAlgo Visualizer Pro v3.0 (Updated)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=3.0">
+</head>
+
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <h1>GraphAlgo <span class="accent">v3.0</span></h1>
+
+            <div class="panel">
+                <label style="display: flex; justify-content: space-between; align-items: center;">
+                    Algorithm 1
+                    <div class="comparison-toggle">
+                        <input type="checkbox" id="chkDualMode">
+                        <label for="chkDualMode" title="Enable Dual Mode Comparison">Dual ⚔️</label>
+                    </div>
+                </label>
+                <select id="algoSelect">
+                    <option value="dijkstra">Dijkstra's Algorithm</option>
+                    <option value="bfs">Breadth-First Search (BFS)</option>
+                    <option value="astar">A* Algorithm</option>
+                </select>
+            </div>
+
+            <div class="panel dual-only" id="panelAlgo2" style="display: none;">
+                <label>Algorithm 2 (Comparison)</label>
+                <select id="algoSelect2">
+                    <option value="astar">A* Algorithm</option>
+                    <option value="dijkstra">Dijkstra's Algorithm</option>
+                    <option value="bfs">Breadth-First Search (BFS)</option>
+                </select>
+            </div>
+
+            <div class="panel">
+                <label>Tools</label>
+                <div class="tools">
+                    <button class="tool-btn active" data-mode="obstacle">🧱 Wall</button>
+                    <button class="tool-btn" data-mode="weight">⚖️ Weight</button>
+                    <button class="tool-btn" data-mode="source">🚩 Start</button>
+                    <button class="tool-btn" data-mode="dest">🏁 End</button>
+                    <label
+                        style="grid-column: span 2; display: flex; align-items: center; gap: 8px; margin-top: 8px; cursor: pointer; color: var(--text-muted); font-size: 0.85rem;">
+                        <input type="checkbox" id="chkDiagonal"> ↘️ Diagonals
+                    </label>
+                </div>
+
+                <div id="weightControl" class="control-group"
+                    style="margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px;">
+                    <label style="display:flex; justify-content:space-between;">
+                        <span>Weight Cost</span>
+                        <span id="weightValue" class="highlight">5</span>
+                    </label>
+                    <input type="range" id="weightRange" min="1" max="50" value="5">
+                </div>
+            </div>
+
+            <div class="actions">
+                <button id="btnRun" class="primary-btn">▶ Run Visualizer</button>
+                <button id="btnMaze" class="secondary-btn">🎲 Random Maze</button>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                    <button id="btnSave" class="secondary-btn" title="Save to File">💾 Save</button>
+                    <button id="btnLoad" class="secondary-btn" title="Load from File">📂 Load</button>
+                </div>
+                <button id="btnReset" class="danger-btn">🗑 Clear Board</button>
+                <input type="file" id="fileInput" style="display: none;" accept=".txt,.json">
+            </div>
+
+            <div class="stats-container">
+                <div class="stats" id="stats1">
+                    <h3>Stats 1</h3>
+                    <p>Time: <span id="timeDisplay" class="highlight">0.00</span> ms</p>
+                    <p>Visited: <span id="visitedDisplay">0</span></p>
+                    <p>Path Len: <span id="pathDisplay">0</span></p>
+                    <p>Path Cost: <span id="costDisplay" class="highlight">0</span></p>
+                    <p>Speed: <span id="speedDisplay">0</span> nodes/ms</p>
+                </div>
+                <div class="stats dual-only" id="stats2" style="display: none;">
+                    <h3>Stats 2</h3>
+                    <p>Time: <span id="timeDisplay2" class="highlight">0.00</span> ms</p>
+                    <p>Visited: <span id="visitedDisplay2">0</span></p>
+                    <p>Path Len: <span id="pathDisplay2">0</span></p>
+                    <p>Path Cost: <span id="costDisplay2" class="highlight">0</span></p>
+                    <p>Speed: <span id="speedDisplay2">0</span> nodes/ms</p>
+                </div>
+            </div>
+        </aside>
+
+        <main class="grid-layout">
+            <div class="canvas-wrapper" id="wrapper1">
+                <div class="canvas-label">View 1</div>
+                <canvas id="gridCanvas"></canvas>
+            </div>
+            <div class="canvas-wrapper dual-only" id="wrapper2" style="display: none;">
+                <div class="canvas-label">View 2</div>
+                <canvas id="gridCanvas2"></canvas>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js?v=3.0"></script>
+    <script src="dijkstra.js?v=3.0"></script> <!-- The compiled Wasm glue code -->
+</body>
+
+</html>
